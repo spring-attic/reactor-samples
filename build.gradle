@@ -1,0 +1,73 @@
+ext {
+	groovyVersion = '2.1.6'
+	slf4jVersion = '1.7.5'
+	logbackVersion = '1.0.13'
+	reactorVersion = '1.0.0.BUILD-SNAPSHOT'
+  springVersion = '4.0.0.M2'
+	springBootVersion = '0.5.0.M3'
+	spockVersion = '0.7-groovy-2.0'
+}
+
+buildscript {
+	repositories {
+    maven { url "http://repo.springsource.org/libs-snapshot" }
+	}
+	dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M3")
+	}
+}
+
+configurations.all {
+	exclude group: "commons-logging"
+	exclude module: "junit"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+repositories {
+	mavenLocal()
+	maven { url 'http://repo.springsource.org/libs-release' }
+	maven { url 'http://repo.springsource.org/libs-milestone' }
+	maven { url 'http://repo.springsource.org/libs-snapshot' }
+	mavenCentral()
+}
+
+project.sourceCompatibility = 1.8
+project.targetCompatibility = 1.8
+
+[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g"]
+
+dependencies {
+	// Spring Boot
+  compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+
+  compile "org.springframework:spring-core:$springVersion",
+    "org.springframework:spring-beans:$springVersion",
+    "org.springframework:spring-context:$springVersion",
+    "org.springframework:spring-context-support:$springVersion",
+    "org.springframework:spring-tx:$springVersion"
+  runtime "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+
+	// Reactor
+	compile "org.projectreactor:reactor-spring:$reactorVersion"
+
+
+	// Testing
+	testCompile "org.codehaus.groovy:groovy-all:$groovyVersion",
+		"org.hamcrest:hamcrest-library:1.3",
+		"org.spockframework:spock-core:$spockVersion",
+		"org.projectreactor:reactor-groovy:$reactorVersion"
+	testRuntime "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+		"ch.qos.logback:logback-classic:$logbackVersion",
+		"org.projectreactor:reactor-logback:$reactorVersion"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
+}
+
+
+
