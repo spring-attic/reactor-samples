@@ -24,7 +24,7 @@ import reactor.tuple.Tuple2;
  * @author Jon Brisbin
  */
 @EnableAutoConfiguration
-public class ReactorSamples implements CommandLineRunner {
+public class DispatcherSamples implements CommandLineRunner {
 
 	@Autowired
 	private Consumer<Event<Reactor>> consumer;
@@ -34,22 +34,20 @@ public class ReactorSamples implements CommandLineRunner {
 	private Reactor                  threadPoolReactor;
 
 	@Override public void run(String... args) throws Exception {
-		threadPoolReactor();
-
-		multipleEventLoopReactors();
-
-		multipleRingBufferReactors();
+		threadPoolDispatcher();
+		multipleEventLoopDispatchers();
+		multipleRingBufferDispatchers();
 
 		env.shutdown();
 	}
 
-	private void threadPoolReactor() {
+	private void threadPoolDispatcher() {
 		Boundary b = new Boundary();
 
 		// Bind to a Selector using an anonymous object
 		Tuple2<Selector, Object> anon = $();
 
-		threadPoolReactor.on(anon.getT1(), b.bind(consumer));
+		threadPoolReactor.on(anon.getT1(), b.bind(consumer, 3));
 
 		threadPoolReactor.notify(anon.getT2(), Event.wrap(threadPoolReactor));
 		threadPoolReactor.notify(anon.getT2(), Event.wrap(threadPoolReactor));
@@ -58,7 +56,7 @@ public class ReactorSamples implements CommandLineRunner {
 		b.await();
 	}
 
-	private void multipleEventLoopReactors() {
+	private void multipleEventLoopDispatchers() {
 		Boundary b = new Boundary();
 
 		Reactor r1 = Reactors.reactor()
@@ -73,8 +71,8 @@ public class ReactorSamples implements CommandLineRunner {
 		// Bind to a Selector using an anonymous object
 		Tuple2<Selector, Object> anon = $();
 
-		r1.on(anon.getT1(), b.bind(consumer));
-		r2.on(anon.getT1(), b.bind(consumer));
+		r1.on(anon.getT1(), b.bind(consumer, 3));
+		r2.on(anon.getT1(), b.bind(consumer, 2));
 
 		r1.notify(anon.getT2(), Event.wrap(r1));
 		r1.notify(anon.getT2(), Event.wrap(r1));
@@ -86,7 +84,7 @@ public class ReactorSamples implements CommandLineRunner {
 		b.await();
 	}
 
-	private void multipleRingBufferReactors() {
+	private void multipleRingBufferDispatchers() {
 		Boundary b = new Boundary();
 
 		Reactor r1 = Reactors.reactor()
@@ -101,8 +99,8 @@ public class ReactorSamples implements CommandLineRunner {
 		// Bind to a Selector using an anonymous object
 		Tuple2<Selector, Object> anon = $();
 
-		r1.on(anon.getT1(), b.bind(consumer));
-		r2.on(anon.getT1(), b.bind(consumer));
+		r1.on(anon.getT1(), b.bind(consumer, 3));
+		r2.on(anon.getT1(), b.bind(consumer, 2));
 
 		r1.notify(anon.getT2(), Event.wrap(r1));
 		r1.notify(anon.getT2(), Event.wrap(r1));
@@ -114,8 +112,8 @@ public class ReactorSamples implements CommandLineRunner {
 		b.await();
 	}
 
-	public static void main(String... args){
-		SpringApplication.run(ReactorSamples.class, args);
+	public static void main(String... args) {
+		SpringApplication.run(DispatcherSamples.class, args);
 	}
 
 	@Configuration
@@ -123,7 +121,7 @@ public class ReactorSamples implements CommandLineRunner {
 	static class ReactorConfiguration {
 
 		@Bean public Logger log() {
-			return LoggerFactory.getLogger(ReactorSamples.class);
+			return LoggerFactory.getLogger(DispatcherSamples.class);
 		}
 
 		@Bean public Consumer<Event<Reactor>> consumer(Logger log) {
