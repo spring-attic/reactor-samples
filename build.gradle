@@ -57,6 +57,7 @@ dependencies {
 
 	// Reactor
 	compile "org.projectreactor:reactor-spring:$reactorVersion"
+	compile "org.projectreactor:reactor-groovy:$reactorVersion"
 
 
 	// Testing
