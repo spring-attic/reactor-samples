@@ -23,6 +23,7 @@ configurations.all {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
@@ -41,6 +42,9 @@ project.targetCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g"]
 
 dependencies {
+  // Groovy
+  compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+
 	// Spring Boot
   compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
 

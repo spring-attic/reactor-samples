@@ -1,4 +1,4 @@
-package org.projectreactor.springone;
+package org.projectreactor.samples;
 
 import static reactor.event.selector.Selectors.*;
 

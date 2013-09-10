@@ -1,4 +1,4 @@
-package org.projectreactor.springone;
+package org.projectreactor.samples;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
