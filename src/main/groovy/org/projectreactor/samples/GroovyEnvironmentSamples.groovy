@@ -31,7 +31,7 @@ def env = GroovyEnvironment.create {
 	reactor('teamReactor'){
 		stream{
 			map{
-				it.replyTo in String ? it.copy(it.data.toLowerCase()) : it
+				it.replyTo ? it.copy(it.data.toLowerCase()) : it
 			}
 		}
 
@@ -51,12 +51,12 @@ def env = GroovyEnvironment.create {
 	}
 }
 
-def emitter = "Chuck Norris"
-env['teamReactor'].send('Jon', emitter ) {
+def person = "Chuck Norris"
+env['teamReactor'].send('Jon', person ) {
 	println it
 }
 
-env['teamReactor'].send('Stephane', emitter ) {
+env['teamReactor'].send('Stephane', person ) {
 	println it
 }
 

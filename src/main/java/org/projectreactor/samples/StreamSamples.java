@@ -33,7 +33,7 @@ public class StreamSamples {
 
 		// Deferred is the publisher, Stream the consumer
 		Deferred<String, Stream<String>> deferred = Streams.<String>defer()
-		                                                   .env(ENV)
+				.env(ENV)
 		                                                   .dispatcher(Environment.RING_BUFFER)
 		                                                   .get();
 		Stream<String> stream = deferred.compose();
