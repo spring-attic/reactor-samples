@@ -59,6 +59,9 @@ dependencies {
 	compile "org.projectreactor:reactor-spring:$reactorVersion"
 	compile "org.projectreactor:reactor-groovy:$reactorVersion"
 
+	//RxJava
+	compile "com.netflix.rxjava:rxjava-core:0.11.1"
+
 
 	// Testing
 	testCompile "org.codehaus.groovy:groovy-all:$groovyVersion",
