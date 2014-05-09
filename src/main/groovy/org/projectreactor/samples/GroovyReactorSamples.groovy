@@ -16,10 +16,10 @@
 package org.projectreactor.samples
 
 import reactor.core.Environment
-import reactor.core.composable.Promise
-import reactor.core.composable.Stream
-import reactor.core.composable.spec.Promises
-import reactor.core.composable.spec.Streams
+import reactor.rx.Promise
+import reactor.rx.Stream
+import reactor.rx.spec.Promises
+import reactor.rx.spec.Streams
 
 final ENV = new Environment()
 
@@ -30,7 +30,7 @@ def simpleStream = {
 			.dispatcher(Environment.RING_BUFFER)
 			.get()
 
-	Stream<String> stream = deferred.compose()
+	Stream<String> stream = deferred
 
 	// Consume values passing through the Stream
 	stream.consume { println "Consumed String $it" }
@@ -45,7 +45,7 @@ def transformValues = {
 			.env(ENV)
 			.dispatcher(Environment.RING_BUFFER)
 			.get()
-	Stream stream = deferred.compose()
+	Stream stream = deferred
 
 	// Transform values passing through the Stream
 	def transformation = stream | { String data -> data.toUpperCase() }
@@ -62,7 +62,7 @@ def filterValues = {
 			.dispatcher(Environment.RING_BUFFER)
 			.get()
 
-	Stream stream = deferred.compose()
+	Stream stream = deferred
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }

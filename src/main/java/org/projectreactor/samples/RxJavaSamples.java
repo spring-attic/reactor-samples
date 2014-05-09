@@ -17,13 +17,9 @@ package org.projectreactor.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.Stream;
 import reactor.core.Environment;
-import reactor.core.composable.Deferred;
-import reactor.core.composable.Stream;
-import reactor.core.composable.spec.Streams;
-import rx.Observable;
-
-import java.util.Arrays;
+import reactor.rx.spec.Streams;
 
 /**
  * @author Jon Brisbin
@@ -39,7 +35,7 @@ public class RxJavaSamples {
 		//Observable<Integer> obs = Observable.from(1,2,3,4,5);
 		//obs.subscribe(i -> System.out.println("a:" + i));
 
-		Deferred<Integer, Stream<Integer>> stream = Streams.<Integer>defer().env(ENV).get();
+		Stream<Integer> stream = Streams.<Integer>defer().env(ENV).get();
 
 		stream.compose()
 				.consume(i -> System.out.println("0:" + i))
