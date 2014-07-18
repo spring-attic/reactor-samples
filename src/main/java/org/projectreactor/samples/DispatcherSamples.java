@@ -1,7 +1,5 @@
 package org.projectreactor.samples;
 
-import static reactor.event.selector.Selectors.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,8 @@ import reactor.function.support.Boundary;
 import reactor.spring.context.config.EnableReactor;
 import reactor.tuple.Tuple2;
 
+import static reactor.event.selector.Selectors.$;
+
 /**
  * @author Jon Brisbin
  */
@@ -35,7 +35,6 @@ public class DispatcherSamples implements CommandLineRunner {
 
 	@Override public void run(String... args) throws Exception {
 		threadPoolDispatcher();
-		multipleEventLoopDispatchers();
 		multipleRingBufferDispatchers();
 
 		env.shutdown();
@@ -52,34 +51,6 @@ public class DispatcherSamples implements CommandLineRunner {
 		threadPoolReactor.notify(anon.getT2(), Event.wrap(threadPoolReactor));
 		threadPoolReactor.notify(anon.getT2(), Event.wrap(threadPoolReactor));
 		threadPoolReactor.notify(anon.getT2(), Event.wrap(threadPoolReactor));
-
-		b.await();
-	}
-
-	private void multipleEventLoopDispatchers() {
-		Boundary b = new Boundary();
-
-		Reactor r1 = Reactors.reactor()
-		                     .env(env)
-		                     .dispatcher(Environment.EVENT_LOOP)
-		                     .get();
-		Reactor r2 = Reactors.reactor()
-		                     .env(env)
-		                     .dispatcher(Environment.EVENT_LOOP)
-		                     .get();
-
-		// Bind to a Selector using an anonymous object
-		Tuple2<Selector, Object> anon = $();
-
-		r1.on(anon.getT1(), b.bind(consumer, 3));
-		r2.on(anon.getT1(), b.bind(consumer, 2));
-
-		r1.notify(anon.getT2(), Event.wrap(r1));
-		r1.notify(anon.getT2(), Event.wrap(r1));
-		r1.notify(anon.getT2(), Event.wrap(r1));
-
-		r2.notify(anon.getT2(), Event.wrap(r2));
-		r2.notify(anon.getT2(), Event.wrap(r2));
 
 		b.await();
 	}
