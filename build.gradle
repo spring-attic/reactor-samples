@@ -1,10 +1,10 @@
 ext {
-	groovyVersion = '2.1.6'
+	groovyVersion = '2.3.5'
 	slf4jVersion = '1.7.5'
 	logbackVersion = '1.0.13'
-	reactorVersion = '1.0.0.BUILD-SNAPSHOT'
-  springVersion = '4.0.0.M2'
-	springBootVersion = '0.5.0.M3'
+	reactorVersion = '2.0.0.BUILD-SNAPSHOT'
+  springVersion = '4.0.0.RELEASE'
+	springBootVersion = '1.2.0.BUILD-SNAPSHOT'
 	spockVersion = '0.7-groovy-2.0'
 }
 
@@ -13,7 +13,7 @@ buildscript {
     maven { url "http://repo.springsource.org/libs-snapshot" }
 	}
 	dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M3")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.BUILD-SNAPSHOT")
 	}
 }
 
@@ -74,7 +74,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.7'
+    gradleVersion = '2.0'
 }
 
 

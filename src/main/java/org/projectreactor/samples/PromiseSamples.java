@@ -18,18 +18,14 @@ public class PromiseSamples {
 
 	public static void main(String... args) throws Exception {
 		// Deferred is the publisher, Promise the consumer
-		Promise<String> deferred = Promises.<String>defer()
-		                                                     .env(ENV)
-		                                                     .dispatcher(Environment.RING_BUFFER)
-		                                                     .get();
-		Promise<String> promise = deferred;
+		Promise<String> promise = Promises.<String>defer(ENV);
 
 		promise.onComplete(p -> LOG.info("Promise completed {}", p))
 		       .onSuccess(s -> LOG.info("Got value: {}", s))
 		       .onError(t -> LOG.error(t.getMessage(), t));
 
 		try {
-			deferred.broadcastNext("Hello World!");
+			promise.onNext("Hello World!");
 			//deferred.broadcastNext(new IllegalArgumentException("Hello Shmello! :P"));
 
 			String s = promise.await(1, TimeUnit.SECONDS);

@@ -17,37 +17,46 @@ package org.projectreactor.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.Stream;
 import reactor.core.Environment;
+import reactor.rx.Stream;
 import reactor.rx.spec.Streams;
+import rx.Observable;
+import rx.Observer;
 
 /**
- * @author Jon Brisbin
+ * @author Stephane Maldini
  */
 public class RxJavaSamples {
 
 	static final Logger      LOG  = LoggerFactory.getLogger(RxJavaSamples.class);
 	static final Environment ENV  = new Environment();
-	static final int         runs = 10000000;
 
 	public static void main(String... args) throws Exception {
 
-		//Observable<Integer> obs = Observable.from(1,2,3,4,5);
-		//obs.subscribe(i -> System.out.println("a:" + i));
+		final Stream<Integer> stream = Streams.<Integer>defer(ENV);
 
-		Stream<Integer> stream = Streams.<Integer>defer().env(ENV).get();
 
-		stream.compose()
-				.consume(i -> System.out.println("0:" + i))
-				.map(i -> ":"+i)
-				.consume(i -> System.out.println("a:" + i))
-				.consume(i -> System.out.println("b:" + i));
+		stream
+				.map(i -> ":" + i)
+				.consume(i -> LOG.info("consumed:" + i));
 
-		stream.accept(1);
-		stream.accept(2);
-		stream.accept(3);
-		stream.accept(4);
+		Observable<Integer> obs = Observable.from(1, 2, 3, 4, 5);
+		obs.subscribe(new Observer<Integer>() {
+			@Override
+			public void onCompleted() {
+				stream.broadcastComplete();
+			}
 
+			@Override
+			public void onError(Throwable e) {
+				stream.broadcastError(e);
+			}
+
+			@Override
+			public void onNext(Integer arg) {
+				stream.broadcastNext(arg);
+			}
+		});
 
 
 		ENV.shutdown();
