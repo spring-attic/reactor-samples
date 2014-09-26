@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import reactor.core.Environment;
 import reactor.rx.Promise;
 import reactor.rx.Stream;
-import reactor.rx.spec.Streams;
+import reactor.rx.Streams;
 
 /**
  * @author Jon Brisbin

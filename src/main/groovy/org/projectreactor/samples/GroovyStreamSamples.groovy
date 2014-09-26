@@ -17,9 +17,9 @@ package org.projectreactor.samples
 
 import reactor.core.Environment
 import reactor.rx.Promise
+import reactor.rx.Promises
 import reactor.rx.Stream
-import reactor.rx.spec.Promises
-import reactor.rx.spec.Streams
+import reactor.rx.Streams
 
 final ENV = new Environment()
 
