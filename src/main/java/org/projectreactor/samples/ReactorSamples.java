@@ -1,12 +1,12 @@
 package org.projectreactor.samples;
 
-import static reactor.event.selector.Selectors.*;
-
 import reactor.core.Environment;
 import reactor.core.Reactor;
-import reactor.core.spec.Reactors;
 import reactor.event.Event;
+import reactor.event.EventBus;
 import reactor.function.Function;
+
+import static reactor.event.selector.Selectors.$;
 
 /**
  * @author Jon Brisbin
@@ -15,7 +15,7 @@ public class ReactorSamples {
 
 	public static void main(String... args) {
 		Environment env = new Environment();
-		Reactor r = Reactors.reactor()
+		Reactor r = EventBus.create()
 		                    .env(env)
 		                    .dispatcher("ringBuffer")
 		                    .get();

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.core.Environment;
 import reactor.core.Reactor;
-import reactor.core.spec.Reactors;
 import reactor.event.Event;
+import reactor.event.EventBus;
 import reactor.spring.annotation.Selector;
 import reactor.spring.context.config.EnableReactor;
 
@@ -45,7 +45,7 @@ public class SpringSamples implements CommandLineRunner {
 	public static class ReactorConfiguration {
 
 		@Bean public Reactor reactor(Environment env) {
-			return Reactors.reactor().env(env).dispatcher(Environment.RING_BUFFER).get();
+			return EventBus.create().env(env).dispatcher(Environment.RING_BUFFER).get();
 		}
 
 		@Bean public Logger log() {
@@ -72,7 +72,7 @@ public class SpringSamples implements CommandLineRunner {
 		@Autowired
 		private Logger  log;
 		@Autowired
-		private Reactor reactor;
+		private EventBus reactor;
 
 		public void test() {
 			log.info("Testing service...");

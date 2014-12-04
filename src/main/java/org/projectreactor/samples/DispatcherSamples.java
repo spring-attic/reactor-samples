@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.Environment;
 import reactor.core.Reactor;
-import reactor.core.spec.Reactors;
 import reactor.event.Event;
+import reactor.event.EventBus;
 import reactor.event.selector.Selector;
 import reactor.function.Consumer;
 import reactor.function.support.Boundary;
@@ -31,7 +31,7 @@ public class DispatcherSamples implements CommandLineRunner {
 	@Autowired
 	private Environment              env;
 	@Autowired
-	private Reactor                  threadPoolReactor;
+	private EventBus                  threadPoolReactor;
 
 	@Override public void run(String... args) throws Exception {
 		threadPoolDispatcher();
@@ -58,11 +58,11 @@ public class DispatcherSamples implements CommandLineRunner {
 	private void multipleRingBufferDispatchers() {
 		Boundary b = new Boundary();
 
-		Reactor r1 = Reactors.reactor()
+		Reactor r1 = EventBus.create()
 		                     .env(env)
 		                     .dispatcher(Environment.RING_BUFFER)
 		                     .get();
-		Reactor r2 = Reactors.reactor()
+		Reactor r2 = EventBus.create()
 		                     .env(env)
 		                     .dispatcher(Environment.RING_BUFFER)
 		                     .get();
@@ -102,7 +102,7 @@ public class DispatcherSamples implements CommandLineRunner {
 		}
 
 		@Bean public Reactor threadPoolReactor(Environment env) {
-			return Reactors.reactor()
+			return EventBus.create()
 			               .env(env)
 			               .dispatcher(Environment.THREAD_POOL)
 			               .get();

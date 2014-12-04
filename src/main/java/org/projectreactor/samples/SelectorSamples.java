@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.Environment;
 import reactor.core.Reactor;
-import reactor.core.spec.Reactors;
 import reactor.event.Event;
+import reactor.event.EventBus;
 
 import static reactor.event.selector.Selectors.*;
 
@@ -19,7 +19,7 @@ public class SelectorSamples {
 
 	public static void main(String... args) throws InterruptedException {
 
-		Reactor r = Reactors.reactor()
+		Reactor r = EventBus.create()
 		                    .env(ENV)
 		                    .synchronousDispatcher()
 		                    .get();
