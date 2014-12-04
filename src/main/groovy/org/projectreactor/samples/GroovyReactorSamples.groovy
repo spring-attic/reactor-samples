@@ -25,10 +25,7 @@ final ENV = new Environment()
 
 def simpleStream = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> defer()
-			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
-			.get()
+	def deferred = Streams.<String> broadcast(ENV, Environment.RING_BUFFER)
 
 	Stream<String> stream = deferred
 
@@ -41,11 +38,8 @@ def simpleStream = {
 
 def transformValues = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> defer()
-			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
-			.get()
-	Stream stream = deferred
+	def deferred = Streams.<String> broadcast(ENV, Environment.RING_BUFFER)
+	def stream = deferred
 
 	// Transform values passing through the Stream
 	def transformation = stream | { String data -> data.toUpperCase() }
@@ -57,12 +51,9 @@ def transformValues = {
 
 def filterValues = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> defer()
-			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
-			.get()
+	def deferred = broadcast(ENV, Environment.RING_BUFFER)
 
-	Stream stream = deferred
+	def stream = deferred
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }
