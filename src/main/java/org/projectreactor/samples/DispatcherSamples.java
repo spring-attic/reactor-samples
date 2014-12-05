@@ -24,6 +24,7 @@ import static reactor.event.selector.Selectors.$;
 
 /**
  * @author Jon Brisbin
+ * @author Stephane Maldini
  */
 @EnableAutoConfiguration
 public class DispatcherSamples implements CommandLineRunner {
