@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import reactor.core.Environment;
 import reactor.rx.Promise;
 import reactor.rx.Streams;
-import reactor.rx.stream.HotStream;
+import reactor.rx.stream.Broadcaster;
 
 /**
  * @author Jon Brisbin
@@ -29,7 +29,7 @@ public class StreamSamples {
 
 	private static void simpleStream() throws InterruptedException {
 		// A Stream is a data publisher
-		HotStream<String> stream = Streams.<String>defer(ENV);
+		Broadcaster<String> stream = Streams.<String>broadcast(ENV);
 
 		// Log values passing through the Stream and capture the first coming signal
 		Promise<String> promise = stream.
@@ -44,7 +44,7 @@ public class StreamSamples {
 
 	private static void transformValues()  throws InterruptedException {
 		// A Stream is a data publisher
-		HotStream<String> stream = Streams.<String>defer(ENV);
+		Broadcaster<String> stream = Streams.<String>broadcast(ENV);
 
 		// Transform values passing through the Stream, observe and capture the result once.
 		Promise<String> promise = stream.
@@ -60,7 +60,7 @@ public class StreamSamples {
 
 	private static void filterValues()  throws InterruptedException {
 		// A Stream is a data publisher
-		HotStream<String> stream = Streams.<String>defer(ENV);
+		Broadcaster<String> stream = Streams.<String>broadcast(ENV);
 
 		// Filter values passing through the Stream, observe and capture the result once.
 		Promise<String> promise = stream.

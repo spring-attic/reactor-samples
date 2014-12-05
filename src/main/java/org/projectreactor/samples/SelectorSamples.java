@@ -3,7 +3,6 @@ package org.projectreactor.samples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.Environment;
-import reactor.core.Reactor;
 import reactor.event.Event;
 import reactor.event.EventBus;
 
@@ -19,7 +18,7 @@ public class SelectorSamples {
 
 	public static void main(String... args) throws InterruptedException {
 
-		Reactor r = EventBus.create()
+		EventBus r = EventBus.config()
 		                    .env(ENV)
 		                    .synchronousDispatcher()
 		                    .get();

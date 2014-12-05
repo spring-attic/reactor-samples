@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jon Brisbin
+ * @author Stephane Maldini
  */
 public class PromiseSamples {
 
@@ -18,7 +19,7 @@ public class PromiseSamples {
 
 	public static void main(String... args) throws Exception {
 		// Deferred is the publisher, Promise the consumer
-		Promise<String> promise = Promises.<String>defer(ENV);
+		Promise<String> promise = Promises.<String>prepare(ENV);
 
 		promise.onComplete(p -> LOG.info("Promise completed {}", p))
 		       .onSuccess(s -> LOG.info("Got value: {}", s))

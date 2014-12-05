@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.Environment;
 import reactor.rx.Streams;
-import reactor.rx.stream.HotStream;
+import reactor.rx.stream.Broadcaster;
 import rx.Observable;
 import rx.Observer;
 
@@ -33,7 +33,7 @@ public class RxJavaSamples {
 
 	public static void main(String... args) throws Exception {
 
-		final HotStream<Integer> stream = Streams.<Integer>defer(ENV);
+		final Broadcaster<Integer> stream = Streams.<Integer>broadcast(ENV);
 
 
 		stream

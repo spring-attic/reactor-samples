@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.core.Environment;
-import reactor.core.Reactor;
 import reactor.event.Event;
 import reactor.event.EventBus;
 import reactor.spring.annotation.Selector;
@@ -44,12 +43,12 @@ public class SpringSamples implements CommandLineRunner {
 	@ComponentScan
 	public static class ReactorConfiguration {
 
-		@Bean public Reactor reactor(Environment env) {
-			return EventBus.create().env(env).dispatcher(Environment.RING_BUFFER).get();
+		@Bean public EventBus reactor(Environment env) {
+			return EventBus.config().env(env).dispatcher(Environment.RING_BUFFER).get();
 		}
 
 		@Bean public Logger log() {
-			return LoggerFactory.getLogger(ReactorSamples.class);
+			return LoggerFactory.getLogger(EventBusSamples.class);
 		}
 
 	}
@@ -59,7 +58,7 @@ public class SpringSamples implements CommandLineRunner {
 		@Autowired
 		private Logger  log;
 		@Autowired
-		public  Reactor reactor;
+		public  EventBus reactor;
 
 		@Selector("test.topic")
 		public void onTestTopic(String s) {
