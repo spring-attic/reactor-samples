@@ -27,7 +27,7 @@ def simpleStream = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Streams.<String> broadcast()
 			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
+			.dispatcher(Environment.SHARED)
 			.get()
 
 	Stream<String> stream = deferred
@@ -43,7 +43,7 @@ def transformValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Streams.<String> broadcast()
 			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
+			.dispatcher(Environment.SHARED)
 			.get()
 	Stream stream = deferred
 
@@ -59,7 +59,7 @@ def filterValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Streams.<String> broadcast()
 			.env(ENV)
-			.dispatcher(Environment.RING_BUFFER)
+			.dispatcher(Environment.SHARED)
 			.get()
 
 	Stream stream = deferred

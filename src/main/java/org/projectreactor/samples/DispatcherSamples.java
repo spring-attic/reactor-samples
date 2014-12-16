@@ -65,11 +65,11 @@ public class DispatcherSamples implements CommandLineRunner {
 
 		EventBus r1 = EventBus.config()
 		                     .env(env)
-		                     .dispatcher(Environment.RING_BUFFER)
+		                     .dispatcher(Environment.SHARED)
 		                     .get();
 		EventBus r2 = EventBus.config()
 		                     .env(env)
-		                     .dispatcher(Environment.RING_BUFFER)
+		                     .dispatcher(Environment.SHARED)
 		                     .get();
 
 		// Bind to a Selector using an anonymous object

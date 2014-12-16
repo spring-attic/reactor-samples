@@ -44,7 +44,7 @@ public class SpringSamples implements CommandLineRunner {
 	public static class ReactorConfiguration {
 
 		@Bean public EventBus reactor(Environment env) {
-			return EventBus.config().env(env).dispatcher(Environment.RING_BUFFER).get();
+			return EventBus.config().env(env).dispatcher(Environment.SHARED).get();
 		}
 
 		@Bean public Logger log() {
