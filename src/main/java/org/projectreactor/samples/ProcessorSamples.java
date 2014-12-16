@@ -3,9 +3,9 @@ package org.projectreactor.samples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.Environment;
-import reactor.core.processor.Processor;
-import reactor.core.processor.spec.ProcessorSpec;
-import reactor.io.Buffer;
+import reactor.core.dispatch.processor.Processor;
+import reactor.core.dispatch.processor.spec.ProcessorSpec;
+import reactor.io.buffer.Buffer;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
