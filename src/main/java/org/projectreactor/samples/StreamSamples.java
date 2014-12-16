@@ -37,7 +37,7 @@ public class StreamSamples {
 				next();
 
 		// Publish a value
-		stream.broadcastNext("Hello World!");
+		stream.onNext("Hello World!");
 
 		promise.await();
 	}
@@ -53,7 +53,7 @@ public class StreamSamples {
 				next();
 
 		// Publish a value
-		stream.broadcastNext("Hello World!");
+		stream.onNext("Hello World!");
 
 		promise.await();
 	}
@@ -69,8 +69,8 @@ public class StreamSamples {
 				next();
 
 		// Publish a value
-		stream.broadcastNext("Hello World!");
-		stream.broadcastNext("Goodbye World!");
+		stream.onNext("Hello World!");
+		stream.onNext("Goodbye World!");
 
 		promise.await();
 	}

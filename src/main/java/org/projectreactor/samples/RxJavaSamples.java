@@ -54,7 +54,7 @@ public class RxJavaSamples {
 
 			@Override
 			public void onNext(Integer arg) {
-				stream.broadcastNext(arg);
+				stream.onNext(arg);
 			}
 		});
 
