@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import reactor.core.Environment;
+import reactor.Environment;
 import reactor.event.Event;
 import reactor.event.EventBus;
 import reactor.spring.annotation.Selector;

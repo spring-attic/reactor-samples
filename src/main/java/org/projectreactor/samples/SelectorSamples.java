@@ -2,7 +2,7 @@ package org.projectreactor.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.Environment;
+import reactor.Environment;
 import reactor.event.Event;
 import reactor.event.EventBus;
 

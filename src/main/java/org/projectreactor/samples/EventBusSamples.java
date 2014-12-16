@@ -1,9 +1,9 @@
 package org.projectreactor.samples;
 
-import reactor.core.Environment;
+import reactor.Environment;
 import reactor.event.Event;
 import reactor.event.EventBus;
-import reactor.function.Function;
+import reactor.fn.Function;
 
 import static reactor.event.selector.Selectors.$;
 

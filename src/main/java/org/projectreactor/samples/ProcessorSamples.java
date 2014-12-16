@@ -1,16 +1,16 @@
 package org.projectreactor.samples;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import reactor.Environment;
+import reactor.core.processor.Processor;
+import reactor.core.processor.spec.ProcessorSpec;
+import reactor.io.Buffer;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.core.Environment;
-import reactor.core.processor.Processor;
-import reactor.core.processor.spec.ProcessorSpec;
-import reactor.io.Buffer;
 
 /**
  * @author Jon Brisbin
