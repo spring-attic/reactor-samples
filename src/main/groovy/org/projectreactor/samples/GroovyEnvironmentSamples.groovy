@@ -15,7 +15,7 @@
  */
 package org.projectreactor.samples
 
-import reactor.core.configuration.DispatcherType
+import reactor.core.config.DispatcherType
 import reactor.groovy.config.GroovyEnvironment
 
 def env = GroovyEnvironment.create {
