@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.Environment;
-import reactor.event.Event;
-import reactor.event.EventBus;
-import reactor.event.selector.Selector;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
+import reactor.bus.selector.Selector;
 import reactor.fn.Consumer;
 import reactor.rx.Promise;
 import reactor.rx.Streams;
@@ -20,7 +20,7 @@ import reactor.spring.context.config.EnableReactor;
 
 import java.util.List;
 
-import static reactor.event.selector.Selectors.$;
+import static reactor.bus.selector.Selectors.$;
 
 /**
  * @author Jon Brisbin

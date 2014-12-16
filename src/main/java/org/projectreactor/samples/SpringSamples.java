@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import reactor.Environment;
-import reactor.event.Event;
-import reactor.event.EventBus;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
 import reactor.spring.annotation.Selector;
 import reactor.spring.context.config.EnableReactor;
 

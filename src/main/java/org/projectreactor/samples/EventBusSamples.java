@@ -1,11 +1,11 @@
 package org.projectreactor.samples;
 
 import reactor.Environment;
-import reactor.event.Event;
-import reactor.event.EventBus;
+import reactor.bus.Event;
+import reactor.bus.EventBus;
 import reactor.fn.Function;
 
-import static reactor.event.selector.Selectors.$;
+import static reactor.bus.selector.Selectors.$;
 
 /**
  * @author Jon Brisbin
