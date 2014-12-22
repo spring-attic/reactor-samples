@@ -56,8 +56,8 @@ dependencies {
   runtime "org.slf4j:jcl-over-slf4j:$slf4jVersion"
 
 	// Reactor
-	compile "org.projectreactor:reactor-spring:$reactorVersion"
-	compile "org.projectreactor:reactor-groovy:$reactorVersion"
+	compile "io.projectreactor:reactor-spring:$reactorVersion"
+	compile "io.projectreactor:reactor-groovy:$reactorVersion"
 
 	//RxJava
 	compile "com.netflix.rxjava:rxjava-core:0.11.1"
@@ -67,10 +67,10 @@ dependencies {
 	testCompile "org.codehaus.groovy:groovy-all:$groovyVersion",
 		"org.hamcrest:hamcrest-library:1.3",
 		"org.spockframework:spock-core:$spockVersion",
-		"org.projectreactor:reactor-groovy:$reactorVersion"
+		"io.projectreactor:reactor-groovy:$reactorVersion"
 	testRuntime "org.slf4j:jcl-over-slf4j:$slf4jVersion",
 		"ch.qos.logback:logback-classic:$logbackVersion",
-		"org.projectreactor:reactor-logback:$reactorVersion"
+		"io.projectreactor:reactor-logback:$reactorVersion"
 }
 
 task wrapper(type: Wrapper) {
