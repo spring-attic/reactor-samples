@@ -17,49 +17,43 @@ package org.projectreactor.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.Environment;
-import reactor.rx.Streams;
-import reactor.rx.stream.Broadcaster;
+import reactor.rx.broadcast.Broadcaster;
 import rx.Observable;
 import rx.Observer;
+
+import java.util.Arrays;
 
 /**
  * @author Stephane Maldini
  */
 public class RxJavaSamples {
 
-	static final Logger      LOG  = LoggerFactory.getLogger(RxJavaSamples.class);
-	static final Environment ENV  = new Environment();
+	static final Logger LOG = LoggerFactory.getLogger(RxJavaSamples.class);
 
 	public static void main(String... args) throws Exception {
-
-		final Broadcaster<Integer> stream = Streams.<Integer>broadcast(ENV);
-
+		final Broadcaster<Integer> stream = Broadcaster.create();
 
 		stream
 				.map(i -> ":" + i)
 				.consume(i -> LOG.info("consumed:" + i));
 
-		Observable<Integer> obs = Observable.from(1, 2, 3, 4, 5);
-		obs.subscribe(new Observer<Integer>() {
-			@Override
-			public void onCompleted() {
-				stream.broadcastComplete();
-			}
+		Observable.from(Arrays.asList(1, 2, 3, 4, 5))
+		          .subscribe(new Observer<Integer>() {
+			          @Override
+			          public void onCompleted() {
+				          stream.onComplete();
+			          }
 
-			@Override
-			public void onError(Throwable e) {
-				stream.broadcastError(e);
-			}
+			          @Override
+			          public void onError(Throwable e) {
+				          stream.onError(e);
+			          }
 
-			@Override
-			public void onNext(Integer arg) {
-				stream.onNext(arg);
-			}
-		});
-
-
-		ENV.shutdown();
+			          @Override
+			          public void onNext(Integer arg) {
+				          stream.onNext(arg);
+			          }
+		          });
 	}
 
 }

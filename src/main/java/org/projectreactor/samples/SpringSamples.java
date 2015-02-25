@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 import reactor.Environment;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
-import reactor.spring.annotation.Selector;
+import reactor.spring.context.annotation.Consumer;
+import reactor.spring.context.annotation.Selector;
 import reactor.spring.context.config.EnableReactor;
+
+import static reactor.Environment.get;
 
 /**
  * @author Jon Brisbin
@@ -23,15 +26,18 @@ import reactor.spring.context.config.EnableReactor;
 @EnableAutoConfiguration
 public class SpringSamples implements CommandLineRunner {
 
-	@Autowired
-	private Environment env;
+	static {
+		Environment.initializeIfEmpty()
+		           .assignErrorJournal();
+	}
+
 	@Autowired
 	private TestService service;
 
 	@Override public void run(String... args) throws Exception {
 		service.test();
 
-		env.shutdown();
+		get().shutdown();
 	}
 
 	public static void main(String... args) {
@@ -39,12 +45,15 @@ public class SpringSamples implements CommandLineRunner {
 	}
 
 	@Configuration
-	@EnableReactor
 	@ComponentScan
+	@EnableReactor
 	public static class ReactorConfiguration {
 
-		@Bean public EventBus reactor(Environment env) {
-			return EventBus.config().env(env).dispatcher(Environment.SHARED).get();
+		@Bean public EventBus eventBus() {
+			return EventBus.config()
+			               .env(get())
+			               .dispatcher(Environment.SHARED)
+			               .get();
 		}
 
 		@Bean public Logger log() {
@@ -53,12 +62,12 @@ public class SpringSamples implements CommandLineRunner {
 
 	}
 
-	@Component
+	@Consumer
 	public static class AnnotatedHandler {
 		@Autowired
 		private Logger  log;
 		@Autowired
-		public  EventBus reactor;
+		public  EventBus eventBus;
 
 		@Selector("test.topic")
 		public void onTestTopic(String s) {
@@ -71,11 +80,11 @@ public class SpringSamples implements CommandLineRunner {
 		@Autowired
 		private Logger  log;
 		@Autowired
-		private EventBus reactor;
+		private EventBus eventBus;
 
 		public void test() {
 			log.info("Testing service...");
-			reactor.notify("test.topic", Event.wrap("Hello World!"));
+			eventBus.notify("test.topic", Event.wrap("Hello World!"));
 		}
 	}
 

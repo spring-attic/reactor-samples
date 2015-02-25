@@ -8,6 +8,8 @@ import reactor.rx.Promises;
 
 import java.util.concurrent.TimeUnit;
 
+import static reactor.Environment.get;
+
 /**
  * @author Jon Brisbin
  * @author Stephane Maldini
@@ -15,11 +17,15 @@ import java.util.concurrent.TimeUnit;
 public class PromiseSamples {
 
 	static final Logger      LOG = LoggerFactory.getLogger(PromiseSamples.class);
-	static final Environment ENV = new Environment();
+	
+	static {
+		Environment.initializeIfEmpty()
+		           .assignErrorJournal();
+	}
 
 	public static void main(String... args) throws Exception {
 		// Deferred is the publisher, Promise the consumer
-		Promise<String> promise = Promises.<String>prepare(ENV);
+		Promise<String> promise = Promises.prepare(get());
 
 		promise.onComplete(p -> LOG.info("Promise completed {}", p))
 		       .onSuccess(s -> LOG.info("Got value: {}", s))
@@ -27,12 +33,12 @@ public class PromiseSamples {
 
 		try {
 			promise.onNext("Hello World!");
-			//deferred.broadcastNext(new IllegalArgumentException("Hello Shmello! :P"));
+			//promise.onError(new IllegalArgumentException("Hello Shmello! :P"));
 
 			String s = promise.await(1, TimeUnit.SECONDS);
 			LOG.info("s={}", s);
 		} finally {
-			ENV.shutdown();
+			get().shutdown();
 		}
 	}
 

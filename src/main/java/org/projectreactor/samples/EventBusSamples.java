@@ -17,7 +17,7 @@ public class EventBusSamples {
 		Environment env = new Environment();
 		EventBus r = EventBus.config()
 		                    .env(env)
-		                    .dispatcher("ringBuffer")
+		                    .dispatcher(Environment.SHARED)
 		                    .get();
 
 		// Subscribe to topic "test"

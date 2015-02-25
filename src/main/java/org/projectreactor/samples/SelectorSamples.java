@@ -6,6 +6,7 @@ import reactor.Environment;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 
+import static reactor.Environment.get;
 import static reactor.bus.selector.Selectors.*;
 
 /**
@@ -14,12 +15,16 @@ import static reactor.bus.selector.Selectors.*;
 public class SelectorSamples {
 
 	static final Logger      LOG = LoggerFactory.getLogger(SelectorSamples.class);
-	static final Environment ENV = new Environment();
+	
+	static {
+		Environment.initializeIfEmpty()
+		           .assignErrorJournal();
+	}
 
 	public static void main(String... args) throws InterruptedException {
 
 		EventBus r = EventBus.config()
-		                    .env(ENV)
+		                    .env(get())
 		                    .synchronousDispatcher()
 		                    .get();
 
@@ -54,8 +59,7 @@ public class SelectorSamples {
 		         Event.wrap(new IllegalArgumentException("That argument was invalid")));
 
 
-
-		ENV.shutdown();
+		get().shutdown();
 	}
 
 }
