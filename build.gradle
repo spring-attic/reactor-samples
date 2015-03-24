@@ -2,7 +2,7 @@ ext {
   groovyVersion = '2.4.1'
   slf4jVersion = '1.7.10'
   logbackVersion = '1.1.2'
-  reactorVersion = '2.0.0.RC1'
+  reactorVersion = '2.0.0.BUILD-SNAPSHOT'
   springVersion = '4.1.5.RELEASE'
   springBootVersion = '1.2.1.RELEASE'
   spockVersion = '0.7-groovy-2.0'
@@ -53,6 +53,8 @@ dependencies {
   // Reactor
   compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion",
       "io.projectreactor:reactor-groovy:$reactorVersion"
+  compile "io.projectreactor:reactor-stream:$reactorVersion",
+      "io.projectreactor:reactor-bus:$reactorVersion"
 
   // RxJava
   compile "io.reactivex:rxjava:1.0.7"
