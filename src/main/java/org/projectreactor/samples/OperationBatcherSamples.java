@@ -3,8 +3,8 @@ package org.projectreactor.samples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.Environment;
-import reactor.bus.ringbuffer.RingBatcher;
-import reactor.bus.ringbuffer.spec.RingBatcherSpec;
+import reactor.bus.batcher.OperationBatcher;
+import reactor.bus.batcher.spec.OperationBatcherSpec;
 import reactor.io.buffer.Buffer;
 
 import java.util.concurrent.CountDownLatch;
@@ -15,9 +15,9 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * @author Jon Brisbin
  */
-public class RingBatcherSamples {
+public class OperationBatcherSamples {
 
-	static final Logger      LOG  = LoggerFactory.getLogger(RingBatcherSamples.class);
+	static final Logger      LOG  = LoggerFactory.getLogger(OperationBatcherSamples.class);
 	static final Environment ENV  = new Environment();
 	static final int         runs = 10000000;
 
@@ -25,7 +25,7 @@ public class RingBatcherSamples {
 		CountDownLatch latch = new CountDownLatch(runs);
 		AtomicLong sum = new AtomicLong();
 
-		RingBatcher<Buffer> proc = new RingBatcherSpec<Buffer>()
+		OperationBatcher<Buffer> proc = new OperationBatcherSpec<Buffer>()
 				.singleThreadedProducer()
 				.dataBufferSize(1024 * 16)
 				.dataSupplier(() -> new Buffer(4, true))

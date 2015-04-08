@@ -30,7 +30,7 @@ apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 
 repositories {
-  maven { url 'http://repo.spring.io/libs-milestone' }
+  maven { url 'http://repo.spring.io/libs-snapshot' }
   jcenter()
 }
 
@@ -51,10 +51,10 @@ dependencies {
       "org.springframework:spring-tx:$springVersion"
 
   // Reactor
-  compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion",
-      "io.projectreactor:reactor-groovy:$reactorVersion"
   compile "io.projectreactor:reactor-stream:$reactorVersion",
-      "io.projectreactor:reactor-bus:$reactorVersion"
+      "io.projectreactor:reactor-bus:$reactorVersion",
+      "io.projectreactor:reactor-groovy:$reactorVersion"
+  compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
 
   // RxJava
   compile "io.reactivex:rxjava:1.0.7"
