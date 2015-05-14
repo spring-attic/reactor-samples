@@ -16,7 +16,6 @@
 package org.projectreactor.samples
 
 import reactor.Environment
-import reactor.rx.Promise
 import reactor.rx.Promises
 import reactor.rx.Stream
 import reactor.rx.broadcast.Broadcaster
@@ -69,14 +68,14 @@ filterValues()
 
 def rand = new Random()
 
-def p1 = Promise.from{ sleep(rand.nextInt(500)); 'Jon' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
-def p2 = Promise.from{ sleep(rand.nextInt(500)); 'Stephane' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
-def p3 = Promise.from{ sleep(rand.nextInt(1000)); 'Chuck Norris' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
+def p1 = Promises.task(ENV, Environment.cachedDispatcher()) { sleep(rand.nextInt(500)); 'Jon' }
+def p2 = Promises.task(ENV, Environment.cachedDispatcher()) { sleep(rand.nextInt(500)); 'Stephane' }
+def p3 = Promises.task(ENV, Environment.cachedDispatcher()) { sleep(rand.nextInt(1000)); 'Chuck Norris' }
 
 p1.get()
 p2.get()
 p3.get()
 
-Promises.any(p1, p2, p3).onSuccess { println "$it won !"} await()
+Promises.any(p1, p2, p3).onSuccess { println Thread.currentThread().toString()+"$it won !"} await()
 
 ENV.shutdown()
