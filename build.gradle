@@ -2,7 +2,7 @@ ext {
   groovyVersion = '2.4.1'
   slf4jVersion = '1.7.10'
   logbackVersion = '1.1.2'
-  reactorVersion = '2.0.1.RELEASE'
+  reactorVersion = '2.1.0.BUILD-SNAPSHOT'
   springVersion = '4.1.5.RELEASE'
   springBootVersion = '1.2.1.RELEASE'
   spockVersion = '0.7-groovy-2.0'
@@ -13,7 +13,10 @@ ext {
 
 buildscript {
   repositories {
-    maven { url "http://repo.springsource.org/libs-release" }
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/release" }
   }
   dependencies {
     classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
@@ -30,7 +33,9 @@ apply plugin: 'groovy'
 apply plugin: 'spring-boot'
 
 repositories {
-  maven { url 'http://repo.spring.io/libs-snapshot' }
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://repo.spring.io/release" }
   jcenter()
 }
 

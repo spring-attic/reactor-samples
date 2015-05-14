@@ -19,16 +19,13 @@ import reactor.Environment
 import reactor.rx.Promise
 import reactor.rx.Promises
 import reactor.rx.Stream
-import reactor.rx.Streams
+import reactor.rx.broadcast.Broadcaster
 
-final ENV = new Environment()
+final ENV = Environment.initializeIfEmpty()
 
 def simpleStream = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> broadcast()
-			.env(ENV)
-			.dispatcher(Environment.SHARED)
-			.get()
+	def deferred = Broadcaster.create(Environment.sharedDispatcher())
 
 	Stream<String> stream = deferred
 
@@ -41,11 +38,8 @@ def simpleStream = {
 
 def transformValues = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> broadcast()
-			.env(ENV)
-			.dispatcher(Environment.SHARED)
-			.get()
-	Stream stream = deferred
+	def deferred = Broadcaster.create(Environment.sharedDispatcher())
+	def stream = deferred
 
 	// Transform values passing through the Stream
 	def transformation = stream | { String data -> data.toUpperCase() }
@@ -57,18 +51,16 @@ def transformValues = {
 
 def filterValues = {
 	// Deferred is the publisher, Stream the consumer
-	def deferred = Streams.<String> broadcast()
-			.env(ENV)
-			.dispatcher(Environment.SHARED)
-			.get()
+	def deferred = Broadcaster.create(Environment.sharedDispatcher())
 
-	Stream stream = deferred
+	def stream = deferred
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }
 
 	// Publish a value
-	deferred << "Hello World!" << "Goodbye World!"
+	deferred << "Hello World!"
+	deferred << "Goodbye World!"
 }
 
 simpleStream()
@@ -77,9 +69,9 @@ filterValues()
 
 def rand = new Random()
 
-def p1 = Promise.from{ sleep(rand.nextInt(500)); 'Jon' } env(ENV) dispatcher(Environment.THREAD_POOL) get()
-def p2 = Promise.from{ sleep(rand.nextInt(500)); 'Stephane' } env(ENV) dispatcher(Environment.THREAD_POOL) get()
-def p3 = Promise.from{ sleep(rand.nextInt(1000)); 'Chuck Norris' } env(ENV) dispatcher(Environment.THREAD_POOL) get()
+def p1 = Promise.from{ sleep(rand.nextInt(500)); 'Jon' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
+def p2 = Promise.from{ sleep(rand.nextInt(500)); 'Stephane' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
+def p3 = Promise.from{ sleep(rand.nextInt(1000)); 'Chuck Norris' } .stream().subscribeOn(Environment.cachedDispatcher()).next()
 
 p1.get()
 p2.get()
