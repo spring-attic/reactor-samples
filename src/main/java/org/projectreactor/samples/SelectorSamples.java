@@ -54,7 +54,7 @@ public class SelectorSamples {
 
 		// A single publish goes to three Consumers
 		r.notify("/some/topic", Event.wrap("Hello World!"));
-		// Publish exception using Exception class as the key
+		// Publish error using Exception class as the key
 		r.notify(IllegalArgumentException.class,
 		         Event.wrap(new IllegalArgumentException("That argument was invalid")));
 
