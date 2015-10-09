@@ -1,6 +1,6 @@
 package org.projectreactor.samples;
 
-import reactor.Environment;
+import reactor.Processors;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 import reactor.fn.Function;
@@ -14,10 +14,8 @@ import static reactor.bus.selector.Selectors.$;
 public class EventBusSamples {
 
 	public static void main(String... args) {
-		Environment env = new Environment();
 		EventBus r = EventBus.config()
-		                    .env(env)
-		                    .dispatcher(Environment.SHARED)
+		                    .processor(Processors.topic())
 		                    .get();
 
 		// Subscribe to topic "test"
@@ -36,7 +34,7 @@ public class EventBusSamples {
 		// Notify topic "test2" and reply to topic "test"
 		r.send("test2", Event.wrap("test2").setReplyTo("test"));
 
-		env.shutdown();
+		r.getProcessor().onComplete();
 	}
 
 }
