@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import reactor.rx.Promise;
 import reactor.rx.broadcast.Broadcaster;
 
+import java.util.List;
+
 /**
  * @author Jon Brisbin
  * @author Stephane Maldini
@@ -59,10 +61,10 @@ public class StreamSamples {
 		Broadcaster<String> stream = Broadcaster.create();
 
 		// Filter values passing through the Stream, observe and capture the result once.
-		Promise<String> promise = stream.
+		Promise<List<String>> promise = stream.
 				                                filter(s -> s.startsWith("Hello")).
 				                                observe(s -> LOG.info("Filtered String {}", s)).
-				                                next();
+				                                toList();
 
 		// Publish a value
 		stream.onNext("Hello World!");
