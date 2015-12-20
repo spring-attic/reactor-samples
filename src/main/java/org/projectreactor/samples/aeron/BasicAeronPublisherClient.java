@@ -14,7 +14,15 @@ import reactor.io.IO;
  */
 public class BasicAeronPublisherClient {
 
+	/**
+	 * Put in here IP of a host on which server is run
+	 */
 	public static final String SENDER_HOST = "127.0.0.1";
+
+	/**
+	 * Put in here IP of the current host network interface to connect to the server
+	 */
+	private static final String RECEIVER_HOST = "127.0.0.1";
 
 	private static class AeronClientSubscriber extends BaseSubscriber<String> {
 
@@ -57,7 +65,8 @@ public class BasicAeronPublisherClient {
 		Context context = new Context()
 				.name("publisher")
 				.autoCancel(true)
-				.senderChannel("udp://" + SENDER_HOST + ":12000");
+				.senderChannel("udp://" + SENDER_HOST + ":12000")
+				.receiverChannel("udp://" + RECEIVER_HOST + ":12001");
 
 		AeronPublisher publisher = AeronPublisher.create(context);
 		IO.bufferToString(publisher).subscribe(new AeronClientSubscriber());

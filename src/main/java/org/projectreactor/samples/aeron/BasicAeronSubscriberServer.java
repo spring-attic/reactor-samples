@@ -14,7 +14,7 @@ import reactor.rx.Streams;
 public class BasicAeronSubscriberServer {
 
 	/**
-	 * Replace with host on which sender is run
+	 * Put in here IP of the current host network interface to be used to communicate with clients
 	 */
 	public static final String SENDER_HOST = "127.0.0.1";
 
