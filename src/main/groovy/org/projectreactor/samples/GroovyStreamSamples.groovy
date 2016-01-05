@@ -15,6 +15,7 @@
  */
 package org.projectreactor.samples
 
+import reactor.Mono
 import reactor.Processors
 import reactor.rx.Promises
 import reactor.rx.Stream
@@ -68,7 +69,7 @@ filterValues()
 def rand = new Random()
 
 def ioGroup = Processors.ioGroup("io")
-def p1 = Promises.task { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
+def p1 = Mono.fromC { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
 def p2 = Promises.task { sleep(rand.nextInt(500)); 'Stephane' } .publishOn(ioGroup)
 def p3 = Promises.task { sleep(rand.nextInt(1000)); 'Chuck Norris' } .publishOn(ioGroup)
 

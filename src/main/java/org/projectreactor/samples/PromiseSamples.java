@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.rx.Promise;
-import reactor.rx.Promises;
 
 
 /**
@@ -19,7 +18,7 @@ public class PromiseSamples {
 
 	public static void main(String... args) throws Exception {
 		// Deferred is the publisher, Promise the consumer
-		Promise<String> promise = Promises.prepare();
+		Promise<String> promise = Promise.prepare();
 
 		promise.onComplete(p -> LOG.info("Promise completed {}", p))
 		       .onSuccess(s -> LOG.info("Got value: {}", s))
