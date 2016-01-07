@@ -31,7 +31,7 @@ public class StreamSamples {
 
 		// Log values passing through the Stream and capture the first coming signal
 		Promise<String> promise = stream.
-				                                observe(s -> LOG.info("Consumed String {}", s)).
+				                                doOnNext(s -> LOG.info("Consumed String {}", s)).
 				                                next();
 
 		// Publish a value
@@ -47,7 +47,7 @@ public class StreamSamples {
 		// Transform values passing through the Stream, observe and capture the result once.
 		Promise<String> promise = stream.
 				                                map(String::toUpperCase).
-				                                observe(s -> LOG.info("UC String {}", s)).
+				                                doOnNext(s -> LOG.info("UC String {}", s)).
 				                                next();
 
 		// Publish a value
@@ -63,7 +63,7 @@ public class StreamSamples {
 		// Filter values passing through the Stream, observe and capture the result once.
 		Promise<List<String>> promise = stream.
 				                                filter(s -> s.startsWith("Hello")).
-				                                observe(s -> LOG.info("Filtered String {}", s)).
+				                                doOnNext(s -> LOG.info("Filtered String {}", s)).
 				                                toList();
 
 		// Publish a value
