@@ -1,8 +1,8 @@
 package org.projectreactor.samples;
 
-import reactor.Processors;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
+import reactor.core.publisher.Processors;
 import reactor.fn.Function;
 
 import static reactor.bus.selector.Selectors.$;

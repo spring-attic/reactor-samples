@@ -15,8 +15,8 @@
  */
 package org.projectreactor.samples
 
-import reactor.Mono
-import reactor.Processors
+import reactor.core.publisher.Mono
+import reactor.core.publisher.Processors
 import reactor.rx.Promises
 import reactor.rx.Stream
 import reactor.rx.broadcast.Broadcaster

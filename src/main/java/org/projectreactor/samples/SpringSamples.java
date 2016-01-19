@@ -2,9 +2,9 @@ package org.projectreactor.samples;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.Processors;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
+import reactor.core.publisher.Processors;
 import reactor.spring.context.annotation.Consumer;
 import reactor.spring.context.annotation.Selector;
 import reactor.spring.context.config.EnableReactor;
