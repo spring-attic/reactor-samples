@@ -4,7 +4,7 @@ import org.reactivestreams.Subscription;
 import reactor.aeron.Context;
 import reactor.aeron.publisher.AeronPublisher;
 import reactor.core.subscriber.BaseSubscriber;
-import reactor.io.IO;
+import reactor.io.buffer.Buffer;
 
 /**
  * Sample of AeronPublisher usage on the client side.
@@ -69,7 +69,7 @@ public class BasicAeronPublisherClient {
 				.receiverChannel("udp://" + RECEIVER_HOST + ":12001");
 
 		AeronPublisher publisher = AeronPublisher.create(context);
-		IO.bufferToString(publisher).subscribe(new AeronClientSubscriber());
+		Buffer.bufferToString(publisher).subscribe(new AeronClientSubscriber());
 	}
 
 }
