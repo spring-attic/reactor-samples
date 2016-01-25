@@ -17,10 +17,9 @@ package org.projectreactor.samples
 
 import reactor.core.publisher.Mono
 import reactor.core.publisher.Processors
+import reactor.rx.Broadcaster
 import reactor.rx.Promises
 import reactor.rx.Stream
-import reactor.rx.broadcast.Broadcaster
-
 
 def simpleStream = {
 	// Deferred is the publisher, Stream the consumer

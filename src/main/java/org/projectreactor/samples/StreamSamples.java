@@ -1,11 +1,11 @@
 package org.projectreactor.samples;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.rx.Broadcaster;
 import reactor.rx.Promise;
-import reactor.rx.broadcast.Broadcaster;
-
-import java.util.List;
 
 /**
  * @author Jon Brisbin

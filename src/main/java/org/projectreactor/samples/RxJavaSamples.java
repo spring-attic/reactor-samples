@@ -15,13 +15,13 @@
  */
 package org.projectreactor.samples;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.rx.broadcast.Broadcaster;
+import reactor.rx.Broadcaster;
 import rx.Observable;
 import rx.Observer;
-
-import java.util.Arrays;
 
 /**
  * @author Stephane Maldini
