@@ -20,9 +20,9 @@ public class PromiseSamples {
 		// Deferred is the publisher, Promise the consumer
 		Promise<String> promise = Promise.prepare();
 
-		promise.onComplete(p -> LOG.info("Promise completed {}", p))
-		       .onSuccess(s -> LOG.info("Got value: {}", s))
-		       .onError(t -> LOG.error(t.getMessage(), t));
+		promise.doOnSuccess(p -> LOG.info("Promise completed {}", p))
+		       .doOnTerminate((s, e) -> LOG.info("Got value: {}", s))
+		       .doOnError(t -> LOG.error(t.getMessage(), t));
 
 		promise.onNext("Hello World!");
 		//promise.onError(new IllegalArgumentException("Hello Shmello! :P"));

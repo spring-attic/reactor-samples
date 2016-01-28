@@ -18,7 +18,6 @@ package org.projectreactor.samples
 import reactor.core.publisher.Mono
 import reactor.core.publisher.Processors
 import reactor.rx.Broadcaster
-import reactor.rx.Promises
 import reactor.rx.Stream
 
 def simpleStream = {
@@ -68,12 +67,12 @@ filterValues()
 def rand = new Random()
 
 def ioGroup = Processors.ioGroup("io")
-def p1 = Mono.fromC { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
-def p2 = Promises.task { sleep(rand.nextInt(500)); 'Stephane' } .publishOn(ioGroup)
-def p3 = Promises.task { sleep(rand.nextInt(1000)); 'Chuck Norris' } .publishOn(ioGroup)
+def p1 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
+def p2 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Stephane' } .publishOn(ioGroup)
+def p3 = Mono.fromCallable { sleep(rand.nextInt(1000)); 'Chuck Norris' } .publishOn(ioGroup)
 
 p1.get()
 p2.get()
 p3.get()
 
-Promises.any(p1, p2, p3).onSuccess { println Thread.currentThread().toString()+"$it won !"} await()
+println Mono.any(p1, p2, p3).doOnSuccess { println Thread.currentThread().toString()+"$it won !"} get()

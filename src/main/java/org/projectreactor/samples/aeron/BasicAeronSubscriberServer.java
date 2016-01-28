@@ -3,7 +3,7 @@ package org.projectreactor.samples.aeron;
 import reactor.aeron.Context;
 import reactor.aeron.subscriber.AeronSubscriber;
 import reactor.io.buffer.Buffer;
-import reactor.rx.Streams;
+import reactor.rx.Stream;
 
 /**
  * Sample of AeronSubscriber usage on the server-side.
@@ -24,7 +24,7 @@ public class BasicAeronSubscriberServer {
 						.name("server")
 						.senderChannel("udp://" + SENDER_HOST + ":12000"));
 
-		Streams.range(1, 1000).map(i -> Buffer.wrap("" + i)).subscribe(subscriber);
+		Stream.range(1, 1000).map(i -> Buffer.wrap("" + i)).subscribe(subscriber);
 	}
 
 }
