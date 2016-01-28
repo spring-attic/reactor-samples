@@ -16,7 +16,6 @@
 package org.projectreactor.samples
 
 import reactor.core.publisher.Mono
-import reactor.core.publisher.Processors
 import reactor.rx.Broadcaster
 import reactor.rx.Stream
 
@@ -27,7 +26,7 @@ def simpleStream = {
 	Stream<String> stream = deferred
 
 	// Consume values passing through the Stream
-	stream.process(Processors.topic()).consume { println "Consumed String $it" }
+	stream.process(TopicProcessor.create()).consume { println "Consumed String $it" }
 
 	// Publish a value
 	deferred << "Hello World!"
@@ -36,7 +35,7 @@ def simpleStream = {
 def transformValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
-	def stream = deferred.dispatchOn(Processors.asyncGroup())
+	def stream = deferred.dispatchOn(ProcessorGroup.async())
 
 	// Transform values passing through the Stream
 	def transformation = stream | { String data -> data.toUpperCase() }
@@ -50,7 +49,7 @@ def filterValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
 
-	def stream = deferred.liftProcess{ Processors.topic() }
+	def stream = deferred.liftProcess{ TopicProcessor.create() }
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }
@@ -66,7 +65,7 @@ filterValues()
 
 def rand = new Random()
 
-def ioGroup = Processors.ioGroup("io")
+def ioGroup = ProcessorGroup.io("io")
 def p1 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
 def p2 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Stephane' } .publishOn(ioGroup)
 def p3 = Mono.fromCallable { sleep(rand.nextInt(1000)); 'Chuck Norris' } .publishOn(ioGroup)

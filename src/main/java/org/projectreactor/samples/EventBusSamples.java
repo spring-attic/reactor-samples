@@ -2,7 +2,6 @@ package org.projectreactor.samples;
 
 import reactor.bus.Event;
 import reactor.bus.EventBus;
-import reactor.core.publisher.Processors;
 import reactor.fn.Function;
 
 import static reactor.bus.selector.Selectors.$;
@@ -15,7 +14,7 @@ public class EventBusSamples {
 
 	public static void main(String... args) {
 		EventBus r = EventBus.config()
-		                    .processor(Processors.topic())
+		                    .processor(TopicProcessor.create())
 		                    .get();
 
 		// Subscribe to topic "test"
