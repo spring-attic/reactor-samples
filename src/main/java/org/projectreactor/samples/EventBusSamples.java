@@ -2,6 +2,7 @@ package org.projectreactor.samples;
 
 import reactor.bus.Event;
 import reactor.bus.EventBus;
+import reactor.core.publisher.TopicProcessor;
 import reactor.fn.Function;
 
 import static reactor.bus.selector.Selectors.$;

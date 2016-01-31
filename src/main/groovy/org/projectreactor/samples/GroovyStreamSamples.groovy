@@ -16,6 +16,8 @@
 package org.projectreactor.samples
 
 import reactor.core.publisher.Mono
+import reactor.core.publisher.ProcessorGroup
+import reactor.core.publisher.TopicProcessor
 import reactor.rx.Broadcaster
 import reactor.rx.Stream
 
@@ -49,7 +51,7 @@ def filterValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
 
-	def stream = deferred.liftProcess{ TopicProcessor.create() }
+	def stream = deferred.process{ TopicProcessor.create() }.as{ Stream.from(it) }
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }
