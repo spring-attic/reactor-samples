@@ -16,7 +16,7 @@
 package org.projectreactor.samples
 
 import reactor.core.publisher.Mono
-import reactor.core.publisher.ProcessorGroup
+import reactor.core.publisher.SchedulerGroup
 import reactor.core.publisher.TopicProcessor
 import reactor.rx.Broadcaster
 import reactor.rx.Stream
@@ -37,7 +37,7 @@ def simpleStream = {
 def transformValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
-	def stream = deferred.dispatchOn(ProcessorGroup.async())
+	def stream = deferred.dispatchOn(SchedulerGroup.async())
 
 	// Transform values passing through the Stream
 	def transformation = stream | { String data -> data.toUpperCase() }
@@ -67,7 +67,7 @@ filterValues()
 
 def rand = new Random()
 
-def ioGroup = ProcessorGroup.io("io")
+def ioGroup = SchedulerGroup.io("io")
 def p1 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Jon' } .publishOn(ioGroup)
 def p2 = Mono.fromCallable { sleep(rand.nextInt(500)); 'Stephane' } .publishOn(ioGroup)
 def p3 = Mono.fromCallable { sleep(rand.nextInt(1000)); 'Chuck Norris' } .publishOn(ioGroup)
