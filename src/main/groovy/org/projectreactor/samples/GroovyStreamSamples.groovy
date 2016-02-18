@@ -18,6 +18,7 @@ package org.projectreactor.samples
 import reactor.core.publisher.Mono
 import reactor.core.publisher.SchedulerGroup
 import reactor.core.publisher.TopicProcessor
+import reactor.core.subscriber.Subscribers
 import reactor.rx.Broadcaster
 import reactor.rx.Stream
 
@@ -28,7 +29,7 @@ def simpleStream = {
 	Stream<String> stream = deferred
 
 	// Consume values passing through the Stream
-	stream.process(TopicProcessor.create()).consume { println "Consumed String $it" }
+	stream.subscribeWith(TopicProcessor.create()).subscribe(Subscribers.consumer{ println "Consumed String $it" })
 
 	// Publish a value
 	deferred << "Hello World!"
