@@ -35,6 +35,7 @@ apply plugin: 'spring-boot'
 repositories {
   mavenLocal()
   mavenCentral()
+  maven { url "http://repo.spring.io/snapshot" }
   maven { url "http://repo.spring.io/release" }
   jcenter()
 }
