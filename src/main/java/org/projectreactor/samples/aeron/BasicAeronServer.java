@@ -7,11 +7,11 @@ import reactor.rx.Stream;
 
 /**
  * Sample of AeronSubscriber usage on the server-side.
- * See {@link BasicAeronPublisherClient} for the client implementation.
+ * See {@link BasicAeronClient} for the client implementation.
  *
  * @author Anatoly Kadyshev
  */
-public class BasicAeronSubscriberServer {
+public class BasicAeronServer {
 
 	/**
 	 * Put in here IP of the current host network interface to be used to communicate with clients
@@ -20,7 +20,7 @@ public class BasicAeronSubscriberServer {
 
 	public static void main(String[] args) {
 		AeronSubscriber subscriber = AeronSubscriber.create(
-				new Context()
+				Context.create()
 						.name("server")
 						.senderChannel("udp://" + SENDER_HOST + ":12000"));
 
