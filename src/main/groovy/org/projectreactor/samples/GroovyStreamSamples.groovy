@@ -20,13 +20,13 @@ import reactor.core.publisher.SchedulerGroup
 import reactor.core.publisher.TopicProcessor
 import reactor.core.subscriber.Subscribers
 import reactor.rx.Broadcaster
-import reactor.rx.Stream
+import reactor.rx.Fluxion
 
 def simpleStream = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
 
-	Stream<String> stream = deferred
+	Fluxion<String> stream = deferred
 
 	// Consume values passing through the Stream
 	stream.subscribeWith(TopicProcessor.create()).subscribe(Subscribers.consumer{ println "Consumed String $it" })
@@ -52,7 +52,7 @@ def filterValues = {
 	// Deferred is the publisher, Stream the consumer
 	def deferred = Broadcaster.create()
 
-	def stream = deferred.process{ TopicProcessor.create() }.as{ Stream.from(it) }
+	def stream = deferred.subscribeWith{ TopicProcessor.create() }.as{ Fluxion.from(it) }
 
 	// Filter values passing through the Stream
 	stream.filter { String data -> data.startsWith("Hello") } << { println "Filtered String $it" }
