@@ -1,9 +1,10 @@
 package org.projectreactor.samples;
 
+import java.util.function.Function;
+
 import reactor.bus.Event;
 import reactor.bus.EventBus;
 import reactor.core.publisher.TopicProcessor;
-import reactor.fn.Function;
 
 import static reactor.bus.selector.Selectors.$;
 
