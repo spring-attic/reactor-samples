@@ -24,7 +24,7 @@ public class BasicAeronClient {
 	 */
 	private static final String RECEIVER_HOST = "127.0.0.1";
 
-	private static class ClientSubscriber extends BaseSubscriber<String> {
+	static final class ClientSubscriber implements BaseSubscriber<String> {
 
 		private Subscription subscription;
 
@@ -32,7 +32,7 @@ public class BasicAeronClient {
 
 		@Override
 		public void onSubscribe(Subscription s) {
-			super.onSubscribe(s);
+			BaseSubscriber.super.onSubscribe(s);
 
 			subscription = s;
 			subscription.request(1);
@@ -40,7 +40,7 @@ public class BasicAeronClient {
 
 		@Override
 		public void onNext(String value) {
-			super.onNext(value);
+			BaseSubscriber.super.onNext(value);
 
 			System.out.println("onNext: " + value);
 
@@ -53,6 +53,7 @@ public class BasicAeronClient {
 
 		@Override
 		public void onError(Throwable t) {
+			BaseSubscriber.super.onError(t);
 			t.printStackTrace();
 		}
 
