@@ -69,7 +69,7 @@ public class BasicAeronClient {
 				.senderChannel("udp://" + SENDER_HOST + ":12000")
 				.receiverChannel("udp://" + RECEIVER_HOST + ":12001");
 
-		Buffer.bufferToString(AeronFlux.listenOn(context)).subscribe(new ClientSubscriber());
+		AeronFlux.listenOn(context).as(Buffer::bufferToString).subscribe(new ClientSubscriber());
 	}
 
 }
