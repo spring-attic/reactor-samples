@@ -2,8 +2,8 @@ package org.projectreactor.samples.aeron;
 
 import reactor.aeron.Context;
 import reactor.aeron.subscriber.AeronSubscriber;
+import reactor.core.publisher.Flux;
 import reactor.io.buffer.Buffer;
-import reactor.rx.Fluxion;
 
 /**
  * Sample of AeronSubscriber usage on the server-side.
@@ -24,7 +24,7 @@ public class BasicAeronServer {
 						.name("server")
 						.senderChannel("udp://" + SENDER_HOST + ":12000"));
 
-		Fluxion.range(1, 1000).map(i -> Buffer.wrap("" + i)).subscribe(subscriber);
+		Flux.range(1, 1000).map(i -> Buffer.wrap("" + i)).subscribe(subscriber);
 	}
 
 }
