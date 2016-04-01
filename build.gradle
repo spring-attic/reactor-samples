@@ -61,7 +61,6 @@ dependencies {
       "io.projectreactor:reactor-bus:$reactorVersion",
       "io.projectreactor:reactor-groovy:$reactorVersion",
       "io.projectreactor:reactor-aeron:$reactorVersion",
-      "io.projectreactor:reactor-io:$reactorVersion"
   compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
 
   // RxJava
