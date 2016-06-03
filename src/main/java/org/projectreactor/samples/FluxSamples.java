@@ -62,7 +62,7 @@ public class FluxSamples {
 		// Filter values passing through the Flux, observe and capture the result once.
 		Mono<List<String>> promise = stream.filter(s -> s.startsWith("Hello"))
 		                                   .doOnNext(s -> LOG.info("Filtered String {}", s))
-		                                   .toList()
+		                                   .collectList()
 		                                   .subscribe();
 
 		// Publish a value
