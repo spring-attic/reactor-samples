@@ -1,9 +1,9 @@
 package org.projectreactor.samples.aeron;
 
+import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import reactor.aeron.Context;
 import reactor.aeron.publisher.AeronFlux;
-import reactor.core.subscriber.BaseSubscriber;
 import reactor.io.buffer.Buffer;
 
 /**
@@ -24,7 +24,7 @@ public class BasicAeronClient {
 	 */
 	private static final String RECEIVER_HOST = "127.0.0.1";
 
-	static final class ClientSubscriber implements BaseSubscriber<String> {
+	static final class ClientSubscriber implements Subscriber<String> {
 
 		private Subscription subscription;
 
@@ -32,16 +32,12 @@ public class BasicAeronClient {
 
 		@Override
 		public void onSubscribe(Subscription s) {
-			BaseSubscriber.super.onSubscribe(s);
-
 			subscription = s;
 			subscription.request(1);
 		}
 
 		@Override
 		public void onNext(String value) {
-			BaseSubscriber.super.onNext(value);
-
 			System.out.println("onNext: " + value);
 
 			subscription.request(1);
@@ -53,7 +49,6 @@ public class BasicAeronClient {
 
 		@Override
 		public void onError(Throwable t) {
-			BaseSubscriber.super.onError(t);
 			t.printStackTrace();
 		}
 
