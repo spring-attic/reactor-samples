@@ -25,7 +25,7 @@ public class MonoSamples {
 		promise.onNext("Hello World!");
 		//promise.onError(new IllegalArgumentException("Hello Shmello! :P"));
 
-		String s = result.get(1_000);
+		String s = result.blockMillis(1_000);
 		LOG.info("s={}", s);
 	}
 

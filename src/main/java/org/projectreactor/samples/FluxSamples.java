@@ -36,7 +36,7 @@ public class FluxSamples {
 		// Publish a value
 		stream.onNext("Hello World!");
 
-		promise.get();
+		promise.block();
 	}
 
 	private static void transformValues() throws InterruptedException {
@@ -52,7 +52,7 @@ public class FluxSamples {
 		// Publish a value
 		stream.onNext("Hello World!");
 
-		promise.get();
+		promise.block();
 	}
 
 	private static void filterValues() throws InterruptedException {
@@ -70,7 +70,7 @@ public class FluxSamples {
 		stream.onNext("Goodbye World!");
 		stream.onComplete();
 
-		promise.get();
+		promise.block();
 	}
 
 }
