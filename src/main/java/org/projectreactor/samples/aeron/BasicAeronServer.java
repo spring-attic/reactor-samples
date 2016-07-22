@@ -3,7 +3,7 @@ package org.projectreactor.samples.aeron;
 import reactor.aeron.Context;
 import reactor.aeron.subscriber.AeronSubscriber;
 import reactor.core.publisher.Flux;
-import reactor.io.buffer.Buffer;
+import reactor.ipc.buffer.Buffer;
 
 /**
  * Sample of AeronSubscriber usage on the server-side.

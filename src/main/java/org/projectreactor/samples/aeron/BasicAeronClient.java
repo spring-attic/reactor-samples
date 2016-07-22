@@ -4,7 +4,7 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import reactor.aeron.Context;
 import reactor.aeron.publisher.AeronFlux;
-import reactor.io.buffer.Buffer;
+import reactor.ipc.buffer.Buffer;
 
 /**
  * Sample of AeronFlux usage on the client side.
