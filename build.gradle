@@ -58,11 +58,13 @@ dependencies {
       "org.springframework:spring-tx:$springVersion"
 
   // Reactor
-  compile "io.projectreactor:reactor-core:$reactorVersion",
-      "io.projectreactor.addons:reactor-bus:$reactorIoVersion",
-      "io.projectreactor.x:reactor-groovy:$reactorVersion",
-      "io.projectreactor.ipc:reactor-aeron:$reactorIoVersion",
-  compile "io.projectreactor.spring:reactor-spring-context:$reactorVersion"
+  compile "io.projectreactor:reactor-core:$reactorVersion"
+
+  // Outdated or work in progress Reactor sub-projects
+  compile "io.projectreactor.addons:reactor-bus:$reactorIoVersion",
+      "io.projectreactor.ipc:reactor-aeron:$reactorIoVersion" {
+        exc
+      }
 
   // RxJava
   compile "io.reactivex:rxjava:1.1.3"
