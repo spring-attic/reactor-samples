@@ -1,3 +1,5 @@
+# reactor-samples is no longer actively maintained by VMware, Inc.
+
 > :warning: **Note**: This project is using modules that are being phased out
 in Reactor 3.x, most notably reactor-bus. If you have questions about Reactor 3, join the
 community (see the [reactor README](https://github.com/reactor/reactor/blob/master/README.md)).
